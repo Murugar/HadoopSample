@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.github.frtu.governance</groupId>
+        <artifactId>base-avro-pom</artifactId>
+        <version>1.1.0</version>
+    </parent>
+
+    <groupId>com.iqmsoft</groupId>
+    <artifactId>test1-pom</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>  <module>test1</module>
+  </modules>
+
+    <properties>
+        <!--===========================-->
+        <java.version>1.8</java.version>
+        <scala.version>2.11</scala.version>
+
+        <!--Check latest at https://mvnrepository.com/artifact/org.scala-lang/scala-library-->
+        <scalalib.version>${scala.version}.12</scalalib.version>
+        <scalatest.version>3.0.5</scalatest.version>
+
+        <!--Check latest at https://mvnrepository.com/artifact/org.apache.spark/spark-core -->
+        <spark.version>2.3.3</spark.version>
+        <!--Check latest at https://mvnrepository.com/artifact/org.apache.kafka/kafka-->
+        <kafka.version>2.0.0</kafka.version>
+        <!--===========================-->
+        <!--<slf4j.version>1.7.25</slf4j.version>-->
+        <!--<logback.version>1.2.2</logback.version>-->
+        <!--===========================-->
+        <frtu.governance.version>1.1.0</frtu.governance.version>
+        <frtu.lib.version>1.1.0</frtu.lib.version>
+        <!--===========================-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <!--Bridge Hadoop log4j calls into slf4j-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <!--===========================-->
+            <!--UNCOMMENT for override-->
+            <!--===========================-->
+            <!--LIBRARY-->
+            <!--<dependency>-->
+            <!--<groupId>com.github.frtu.governance</groupId>-->
+            <!--<artifactId>library-serdes</artifactId>-->
+            <!--<version>${frtu.lib.version}</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>com.github.frtu.governance</groupId>-->
+            <!--<artifactId>library-kafka</artifactId>-->
+            <!--<version>${frtu.lib.version}</version>-->
+            <!--</dependency>-->
+
+            <!--KAFKA-->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka_${scala.version}</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+
+            <!--SCALA-->
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>${scalalib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest_${scala.version}</artifactId>
+                <version>${scalatest.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!--SPARK-->
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-core_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-log4j12</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>log4j</artifactId>
+                        <groupId>log4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-sql_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-repl_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+
+            <!-- HIVE -->
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-hive_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-hive-thriftserver_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <!-- Streaming -->
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-streaming_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-streaming-kafka-0-10_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <!-- Structured Streaming with SQL -->
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-sql-kafka-0-10_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.module</groupId>
+                <artifactId>jackson-module-scala_${scala.version}</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!--===========================-->
+            <!--REMOVE PARENT AND UNCOMMENT DEPENDENCY IMPORT IF NEEDED-->
+            <!--===========================-->
+            <!-- Internal domain dependencies -->
+            <!--<dependency>-->
+            <!--<groupId>com.github.frtu.archetype</groupId>-->
+            <!--<artifactId>base-pom</artifactId>-->
+            <!--<version>${frtu.governance.version}</version>-->
+            <!--<type>pom</type>-->
+            <!--<scope>import</scope>-->
+            <!--</dependency>-->
+            <!--===========================-->
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <plugins>
+            <plugin>
+                <!-- https://mvnrepository.com/artifact/net.alchim31.maven/scala-maven-plugin -->
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <!--http://davidb.github.io/scala-maven-plugin/index.html-->
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>skipSoNotNeeded</mainClass>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
